@@ -3,15 +3,28 @@ import java.util.Scanner ;
 
 class Player extends Entity {
 	Player() {
-	super(20,20,"Hero", false) ;
-	}
+	super(20,20,"Hero", false, false) ; }
+	
+	static int applyDamage(int damage, Entity enemy) {
+		 if (enemy.isDefending) {
+			   damage /= 2 ;
+			   enemy.hp -= damage ;
+			   enemy.isDefending = false ;
+			   System.out.println(enemy.name +  " used a shield to defend himself");
+			  
+		   } else {
+		   enemy.hp -= damage ; 
+		   
+		   }
+		 return enemy.hp; }
 	
 	@Override
-	void taketurn(Entity enemy, Entity Player, Random rand, Scanner input) {
+	void taketurn(Entity enemy, Random rand, Scanner input) {
 		  String[] attacks = {"kick", "swordSlash", "dash"};
 
-	      
+		 
 	        int choice = 0 ;
+	        int y = 0;
 	     battle:
 	        while (true) {
 	        	
@@ -27,52 +40,55 @@ class Player extends Entity {
 	           }
 	           }
 	           
-	        	   if (!Player.canDodgeAtt) {
-	        		   
+	        	   if (!canDodgeAtt) {
+	        		  
 	        		   switch (choice) {
 	        		   case 1 :
-	                System.out.println(Player.name + " used " + attacks[0]);
-	                int y = rand.nextInt(2) + 3;
-	                enemy.hp -= y;
+	        			   
+	                System.out.println(name + " used " + attacks[0]);
+	                 y = rand.nextInt(2) + 3;
+	                 enemy.hp = applyDamage(y,enemy);
 	                break battle ;
 	            
 
 	        		   case 2:
-	            	System.out.println(Player.name + " used " + attacks[1]);
-	                int x = rand.nextInt(100);
-
-	                if (x >= 70) {
-	                    int damage = 8;
+	            	System.out.println(name + " used " + attacks[1]);
+	               
+	                if (75 >= rand.nextInt(100)) {
+	                    y = 8;
 	                    System.out.println("critical hit!");
-	                    enemy.hp -= damage;
+	                    enemy.hp = applyDamage(y,enemy);
 	                    break battle;
 	                } else {
-	                    x = rand.nextInt(2) + 4;
-	                    enemy.hp -= x;
+	                    y = rand.nextInt(2) + 3;
+	                    enemy.hp = applyDamage(y,enemy);
 	                    break battle;
 	                }
 	           
 
 	        	   case 3: 
-	            	System.out.println(Player.name + " used " + attacks[2]);
+	            	System.out.println(name + " used " + attacks[2]);
 	                enemy.canDodgeAtt = rand.nextBoolean();
-	                enemy.hp -= 1;
+	                y += 1;
+	                enemy.hp = applyDamage(y,enemy);
 	                break battle;
 	        
 
 	        	   case 4 : 
-	                enemy.hp -= 100;
+	        		   y += 100;
+	        		   enemy.hp = applyDamage(y,enemy);
 	                break battle;
 	            
 
 	            default :
 	            	System.out.println("you had 1, 2 and 3! use those and try again");
 	             }
+	        		  
 	        	   }  
 	        	   
 	        else {
 	        	System.out.println(enemy.name + " has dodged your attack!"); 
-	        			Player.canDodgeAtt = false ;
+	        			canDodgeAtt = false ;
 	        			break battle;
 	        }
 	       
