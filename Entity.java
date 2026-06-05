@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner ;
 
 class Entity {
 
@@ -16,17 +17,14 @@ class Entity {
 	}
 	static Entity[] entityFactory()  {
 
-	String[] name = {"Hero","Gatekeeper"} ;
-    int[] hp = {25,30} ;
-    Entity[] being = new Entity[name.length] ;
+    Entity[] being =  {new Player(), new GateKeeper()} ;
 
-    for (int i = 0 ; i < name.length; i++) {
-being[i] = new Entity(hp[i], hp[i], name[i], false) ;
-    }
+   
     return being;
 	}
 	
-	void taketurn(Entity player, Random rand) {
+	@SuppressWarnings("unused")
+	void taketurn(Entity player, Entity enemy, Random rand, Scanner input) {
 		
 	}
 }
