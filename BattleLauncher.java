@@ -8,28 +8,33 @@ public class BattleLauncher {
 	    }
 	 
 	@SuppressWarnings("unused")
-	static void launchBattle(Random rand, Scanner input, Entity player, Entity enemy) {
+	static void launchBattle(Random rand, Scanner input, Entity Player, Entity enemy) {
 	  System.out.println("_______ battle starts! _______");
-      System.out.println(player.name + " has " + player.hp + " hit points");
+      System.out.println(Player.name + " has " + Player.hp + " hit points");
       System.out.println(enemy.name + " has " + enemy.hp + " hit points");
 
       while (true) {
 
-      PlayerCombatSystem.PlayerTurn(rand, input, enemy, player);
+    	  Player.taketurn(enemy, Player, rand,input) ;
       	attCall(enemy); 
+      	
       	if (enemy.hp <= 0) { 
       		System.out.println("You won!");
       		System.out.println("to keep going press any button");
       		input.nextLine();
       		break ;}
-      	enemy.taketurn(player, rand) ;
-      	attCall(player); 
-        if (player.hp <= 0) {
+      	
+      	enemy.taketurn(Player, enemy, rand,input) ;
+      	attCall(Player); 
+      	
+        if (Player.hp <= 0) {
 System.out.println("you lost!")  ;
 System.out.println("to retry press 1 to quit press 2") ;
+
 int choice ;
 retryloop:
 while (true) {
+	
 try {
 choice = input.nextInt();
 input.nextLine(); 
@@ -39,11 +44,12 @@ break retryloop;
    input.nextLine(); 
 }
 }
+
 switch (choice) {
 case 1:
 	enemy.hp = enemy.maxhp ;
-	player.hp = player.maxhp ;
-	break ;
+	Player.hp = Player.maxhp ;
+	continue ;
 	
 case 2:
 	System.exit(0) ;
@@ -53,6 +59,6 @@ case 2:
           }
         	  
       }
-      Diologs.Story2(input, player);
+      
 }
 }
