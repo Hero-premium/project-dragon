@@ -12,10 +12,10 @@ public class BattleLauncher {
 	  System.out.println("_______ battle starts! _______");
       System.out.println(Player.name + " has " + Player.hp + " hit points");
       System.out.println(enemy.name + " has " + enemy.hp + " hit points");
-
+battleloop:
       while (true) {
 
-    	  Player.taketurn(enemy, Player, rand,input) ;
+    	  Player.taketurn(enemy,rand,input) ;
       	attCall(enemy); 
       	
       	if (enemy.hp <= 0) { 
@@ -24,7 +24,7 @@ public class BattleLauncher {
       		input.nextLine();
       		break ;}
       	
-      	enemy.taketurn(Player, enemy, rand,input) ;
+      	enemy.taketurn(Player,rand,input) ;
       	attCall(Player); 
       	
         if (Player.hp <= 0) {
@@ -32,9 +32,10 @@ System.out.println("you lost!")  ;
 System.out.println("to retry press 1 to quit press 2") ;
 
 int choice ;
+choiceloop:
+while (true) {
 retryloop:
 while (true) {
-	
 try {
 choice = input.nextInt();
 input.nextLine(); 
@@ -49,7 +50,7 @@ switch (choice) {
 case 1:
 	enemy.hp = enemy.maxhp ;
 	Player.hp = Player.maxhp ;
-	continue ;
+	break choiceloop ;
 	
 case 2:
 	System.exit(0) ;
@@ -57,7 +58,7 @@ case 2:
 		System.out.println("you had 1 and 2! use those and try again") ;
 	}
           }
-        	  
+        }  
       }
       
 }
