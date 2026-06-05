@@ -7,13 +7,14 @@ class Entity {
 	int maxhp;
 	String name ;
 	boolean canDodgeAtt;
-	Entity(int hp, int maxhp, String name , boolean canDodgeAtt) {  
+	boolean isDefending;
+	Entity(int hp, int maxhp, String name , boolean canDodgeAtt, boolean isDefending) {  
 
 		this.hp = hp ;
 		this.maxhp = maxhp ;
 		this.name = name ;
 		this.canDodgeAtt =  canDodgeAtt ;
-
+        this.isDefending = isDefending;
 	}
 	static Entity[] entityFactory()  {
 
@@ -24,7 +25,7 @@ class Entity {
 	}
 	
 	@SuppressWarnings("unused")
-	void taketurn(Entity player, Entity enemy, Random rand, Scanner input) {
+	void taketurn(Entity player, Random rand, Scanner input) {
 		
 	}
 }
